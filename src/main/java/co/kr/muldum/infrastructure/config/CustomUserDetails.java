@@ -2,10 +2,11 @@ package co.kr.muldum.infrastructure.config;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
+import java.util.UUID;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.List;
 
-public record CustomUserDetails(String userId) implements UserDetails {
+public record CustomUserDetails(UUID userId) implements UserDetails {
 
     @Override
     public Collection<SimpleGrantedAuthority> getAuthorities() {
@@ -19,7 +20,7 @@ public record CustomUserDetails(String userId) implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userId;
+        return userId.toString();
     }
 
     @Override

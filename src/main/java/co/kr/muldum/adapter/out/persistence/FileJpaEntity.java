@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "file")
@@ -28,7 +31,8 @@ public class FileJpaEntity {
 
     private Long fileSize;
 
-    private Long userId;
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private UUID userId;
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;

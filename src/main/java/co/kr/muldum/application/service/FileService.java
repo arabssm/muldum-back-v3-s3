@@ -19,6 +19,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequ
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +55,7 @@ public class FileService implements GeneratePresignedUrlUseCase, SaveFileUseCase
     }
 
     @Override
-    public File save(String fileUrl, FileMetadata metadata, Long userId) {
+    public File save(String fileUrl, FileMetadata metadata, UUID userId) {
         String extension = FilenameUtils.getExtension(metadata.getName());
         File file = File.create(fileUrl, metadata.getName(), metadata.getType(), extension, metadata.getSize_bytes(), userId);
         return fileRepositoryPort.save(file);

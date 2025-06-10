@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -28,11 +29,11 @@ public class File {
 
     private final Long fileSize;
 
-    private final Long userId;
+    private final UUID userId;
 
     private final LocalDateTime updatedAt;
 
-    public static File create(String fileUrl, String fileName, String fileType, String fileExtension, Long fileSize, Long userId) {
+    public static File create(String fileUrl, String fileName, String fileType, String fileExtension, Long fileSize, UUID userId) {
         Objects.requireNonNull(fileUrl, "fileUrl must not be null");
         Objects.requireNonNull(fileName, "fileName must not be null");
         Objects.requireNonNull(userId, "userId must not be null");
@@ -40,7 +41,7 @@ public class File {
         return new File(null, fileUrl, fileName, fileType, fileExtension, fileSize, userId, LocalDateTime.now());
     }
 
-    public boolean isOwnedBy(Long userIdToCompare) {
+    public boolean isOwnedBy(UUID userIdToCompare) {
         return this.userId.equals(userIdToCompare);
     }
 
