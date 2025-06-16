@@ -1,4 +1,4 @@
-package co.kr.muldum.core.domain.file;
+package co.kr.muldum.application.port.out;
 
 public interface FileStoragePort {
     String uploadFile(String fileName, byte[] content, String contentType);

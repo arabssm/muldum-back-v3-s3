@@ -1,6 +1,6 @@
 package co.kr.muldum.adapter.in.web.dto;
 
-import co.kr.muldum.core.domain.file.FileMetadata;
+import co.kr.muldum.domain.file.FileMetadata;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

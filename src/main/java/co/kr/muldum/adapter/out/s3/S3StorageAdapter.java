@@ -1,6 +1,6 @@
 package co.kr.muldum.adapter.out.s3;
 
-import co.kr.muldum.core.domain.file.FileStoragePort;
+import co.kr.muldum.application.port.out.FileStoragePort;
 import co.kr.muldum.infrastructure.config.S3Properties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

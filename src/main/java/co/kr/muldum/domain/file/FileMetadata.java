@@ -1,4 +1,4 @@
-package co.kr.muldum.core.domain.file;
+package co.kr.muldum.domain.file;
 
 import lombok.Value;
 

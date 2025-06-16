@@ -1,8 +1,10 @@
-package co.kr.muldum.core.application.file;
+package co.kr.muldum.application.service;
 
-import co.kr.muldum.core.domain.file.FileMetadata;
-import co.kr.muldum.core.domain.file.S3File;
-import co.kr.muldum.core.domain.file.S3FileRepositoryPort;
+import co.kr.muldum.application.port.in.GeneratePresignedUrlUseCase;
+import co.kr.muldum.application.port.in.SaveFileUseCase;
+import co.kr.muldum.application.port.out.FileRepositoryPort;
+import co.kr.muldum.domain.file.File;
+import co.kr.muldum.domain.file.FileMetadata;
 import co.kr.muldum.infrastructure.config.S3Properties;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
@@ -20,10 +22,10 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class FileApplicationService implements GeneratePresignedUrlUseCase, SaveS3FileUseCase {
+public class FileService implements GeneratePresignedUrlUseCase, SaveFileUseCase {
 
     private final S3Properties s3Properties;
-    private final S3FileRepositoryPort s3FileRepositoryPort;
+    private final FileRepositoryPort fileRepositoryPort;
 
     @Override
     public String generatePresignedUrl(String fileName, String userId) {
@@ -52,9 +54,9 @@ public class FileApplicationService implements GeneratePresignedUrlUseCase, Save
     }
 
     @Override
-    public S3File save(String fileUrl, FileMetadata metadata, Long userId) {
+    public File save(String fileUrl, FileMetadata metadata, Long userId) {
         String extension = FilenameUtils.getExtension(metadata.getName());
-        S3File s3File = new S3File(null, fileUrl, metadata.getName(), metadata.getType(), extension, metadata.getSize_bytes(), userId, LocalDateTime.now());
-        return s3FileRepositoryPort.save(s3File);
+        File file = File.create(fileUrl, metadata.getName(), metadata.getType(), extension, metadata.getSize_bytes(), userId);
+        return fileRepositoryPort.save(file);
     }
 }
