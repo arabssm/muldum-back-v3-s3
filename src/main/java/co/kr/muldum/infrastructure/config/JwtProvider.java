@@ -1,4 +1,4 @@
-package co.kr.muldum.s3.global.security;
+package co.kr.muldum.infrastructure.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

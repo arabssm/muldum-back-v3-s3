@@ -1,4 +1,4 @@
-package co.kr.muldum.s3.global.security;
+package co.kr.muldum.infrastructure.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

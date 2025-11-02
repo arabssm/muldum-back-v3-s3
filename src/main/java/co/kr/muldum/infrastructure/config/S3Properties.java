@@ -1,4 +1,4 @@
-package co.kr.muldum.s3.global.infra;
+package co.kr.muldum.infrastructure.config;
 
 import lombok.Getter;
 import lombok.Setter;

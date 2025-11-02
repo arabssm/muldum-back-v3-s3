@@ -1,5 +1,6 @@
-package co.kr.muldum.s3.global.infra;
+package co.kr.muldum.adapter.out.s3;
 
+import co.kr.muldum.infrastructure.config.S3Properties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

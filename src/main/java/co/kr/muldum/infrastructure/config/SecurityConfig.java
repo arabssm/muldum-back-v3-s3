@@ -1,5 +1,5 @@
-package co.kr.muldum.s3.global.security.config;
-import co.kr.muldum.s3.global.security.JwtAuthenticationFilter;
+package co.kr.muldum.infrastructure.config;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +20,8 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/files/**").authenticated()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/files/**").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
