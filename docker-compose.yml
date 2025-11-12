@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${S3_SERVER_PORT}:${S3_SERVER_PORT}"
+    depends_on:
+      - db
+    environment:
+      - SERVER_PORT=${S3_SERVER_PORT}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${S3_DB_NAME}
+      - SPRING_DATASOURCE_USERNAME=${S3_DB_USER}
+      - SPRING_DATASOURCE_PASSWORD=${S3_DB_PASS}
+    networks:
+      - muldum-network
+
+  db:
+    image: postgres:15
+    ports:
+      - "${S3_DB_PORT}:5432"
+    environment:
+      - POSTGRES_DB=${S3_DB_NAME}
+      - POSTGRES_USER=${S3_DB_USER}
+      - POSTGRES_PASSWORD=${S3_DB_PASS}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - muldum-network
+
+networks:
+  muldum-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
