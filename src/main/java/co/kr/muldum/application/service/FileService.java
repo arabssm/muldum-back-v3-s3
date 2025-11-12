@@ -18,7 +18,6 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequ
 
 import java.net.URL;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -29,7 +28,7 @@ public class FileService implements GeneratePresignedUrlUseCase, SaveFileUseCase
     private final FileRepositoryPort fileRepositoryPort;
 
     @Override
-    public String generatePresignedUrl(String fileName, String userId) {
+    public String generatePresignedUrl(String fileName, UUID userId) {
         AwsBasicCredentials credentials = AwsBasicCredentials.create(s3Properties.getAccessKey(), s3Properties.getSecretKey());
 
         try (S3Presigner presigner = S3Presigner.builder()

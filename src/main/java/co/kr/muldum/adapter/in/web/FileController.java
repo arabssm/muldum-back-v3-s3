@@ -6,10 +6,8 @@ import co.kr.muldum.application.port.in.SaveFileUseCase;
 import co.kr.muldum.domain.file.File;
 import co.kr.muldum.global.exception.CustomException;
 import co.kr.muldum.global.exception.ErrorCode;
-import co.kr.muldum.infrastructure.config.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -24,25 +22,25 @@ public class FileController {
 
     @GetMapping("/presigned")
     public ResponseEntity<String> getPresignedUrl(
-            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @RequestHeader(value = "X-User-Id") UUID userId,
             @RequestParam("fileName") String fileName
     ) {
         if (fileName == null) {
             throw new CustomException(ErrorCode.FILE_NOT_ATTACHED);
         }
-        String url = generatePresignedUrlUseCase.generatePresignedUrl(fileName, userDetails.userId().toString());
+        String url = generatePresignedUrlUseCase.generatePresignedUrl(fileName, userId);
         return ResponseEntity.ok(url);
     }
 
     @PostMapping
     public ResponseEntity<File> saveFile(
-            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @RequestHeader(value = "X-User-Id") UUID userId,
             @RequestBody SaveFileRequest request
     ) {
         File file = saveFileUseCase.save(
                 request.getFileUrl(),
                 request.getMetadata(),
-                userDetails.userId()
+                userId
         );
         return ResponseEntity.ok(file);
     }
